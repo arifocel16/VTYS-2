@@ -1,0 +1,8 @@
+-- Personel tablosundaki kayıtları listeleyelim
+SELECT * FROM personel
+
+/* Aşağıdaki kodlar yardımıyla iki değişken
+Tanımlanmış ve değişkenlere değer atanmıştır. */
+DECLARE @d1 INT, @D2 INT
+SET @d1 = 10
+SET @D2 = 15
