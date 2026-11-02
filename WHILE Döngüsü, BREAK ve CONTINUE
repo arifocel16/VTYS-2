@@ -1,0 +1,46 @@
+--Sayıların Karesini Alma
+DECLARE @sayac INT
+SET @sayac = 1
+WHILE @sayac <= 5
+BEGIN
+PRINT CAST(@sayac AS varchar(10)) + ' karesi : ' + CAST(@sayac * @sayac AS varchar(10))
+SET @sayac = @sayac + 1
+END
+
+--Ortalama Maaşa Göre Zam Yapma
+SELECT 'Ortalama Maaş = ' + CAST(AVG(maas) AS varchar(20)) FROM personel
+
+WHILE (SELECT AVG(maas) FROM personel) < 3000
+BEGIN
+UPDATE personel SET maas = maas * 20 / 100 + maas
+SELECT ad + ' ' + soyad, maas FROM personel
+END
+
+SELECT 'Son Ortalama Maaş = ' + CAST(AVG(maas) AS varchar(20)) FROM personel
+
+--CONTINUE Örneği (3 Değerini Atlatma)
+DECLARE @sayac INT
+SET @sayac = 1
+WHILE @sayac <= 5
+BEGIN
+IF @sayac = 3
+BEGIN
+SET @sayac = @sayac + 1
+CONTINUE
+END
+PRINT CAST(@sayac AS varchar(10)) + ' karesi : ' + CAST(@sayac * @sayac AS varchar(10))
+SET @sayac = @sayac + 1
+END
+
+--BREAK Örneği (Ortalama Düşürme ve Limit Kontrolü)
+SELECT 'Ortalama Maaş = ' + CAST(AVG(maas) AS varchar(20)) FROM personel
+
+WHILE (SELECT AVG(maas) FROM personel) > 2000
+BEGIN
+UPDATE personel SET maas = maas - maas * 20 / 100
+SELECT ad + ' ' + soyad, maas FROM personel
+IF (SELECT MAX(maas) FROM personel) <= 2500
+BREAK
+END
+
+SELECT 'Son Ortalama Maaş ' + CAST(AVG(maas) AS varchar(20)) FROM personel
