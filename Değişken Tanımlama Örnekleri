@@ -1,0 +1,8 @@
+-- Sayısal değişken
+DECLARE @Sayi INT
+
+-- Karakter değişken
+DECLARE @Karakter VARCHAR(20)
+
+-- Tek satırda birden fazla değişken
+DECLARE @Deger1 INT, @deger2 VARCHAR(20)
