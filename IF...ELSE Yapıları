@@ -1,0 +1,9 @@
+-- EXISTS ile koşul kontrolü
+IF EXISTS (SELECT * FROM personel WHERE maas > 2000)
+PRINT 'Maaşı 2000 den fazla olan personel var.'
+
+-- MIN maaş kontrolü
+IF (SELECT MIN(maas) FROM personel) >= 1500
+PRINT 'Maaşı 1500 den küçük olan personel yok.'
+ELSE
+SELECT ad, soyad, maas FROM personel WHERE maas < 1500
