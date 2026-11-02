@@ -1,0 +1,5 @@
+DECLARE @Deger INT
+SET @Deger = 15
+GO
+SELECT @Deger -- Bu satır hata verir (değer yığın dışında kalmıştır)
+
