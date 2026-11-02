@@ -1,0 +1,27 @@
+--INSERT Operasyonunda OUTPUT:
+DECLARE @eklenenler TABLE(
+ad VARCHAR(20),
+soyad VARCHAR(20),
+maas MONEY
+)
+
+INSERT INTO personel
+OUTPUT INSERTED.ad, INSERTED.soyad, INSERTED.maas
+INTO @eklenenler
+VALUES ('33', 'Turgut', 'Özseven', '', 1500, '', '')
+
+SELECT * FROM @eklenenler
+
+--DELETE Operasyonunda OUTPUT:
+DECLARE @silinenler TABLE(
+ad VARCHAR(20),
+soyad VARCHAR(20),
+maas MONEY
+)
+
+DELETE FROM personel
+OUTPUT DELETED.ad, DELETED.soyad, DELETED.maas
+INTO @silinenler
+WHERE maas < 1300
+
+SELECT * FROM @silinenler
