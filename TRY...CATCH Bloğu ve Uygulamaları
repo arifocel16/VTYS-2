@@ -1,0 +1,42 @@
+--Sıfıra Bölme Hatasını Yakalama
+BEGIN TRY
+SELECT 1/0
+END TRY
+BEGIN CATCH
+SELECT
+ERROR_NUMBER() AS Hata_No,
+ERROR_SEVERITY() AS Öncelik,
+ERROR_LINE() AS Hata_Satırı,
+ERROR_MESSAGE() AS Hata_Mesajı
+END CATCH
+
+--İlişkili Tablo Silme Hata Denetimi Uygulaması
+-- 1. Tabloların oluşturulması
+CREATE TABLE urunler(
+urun_no INT NOT NULL,
+ad NVARCHAR(10),
+CONSTRAINT PK_urunler PRIMARY KEY (urun_no)
+)
+
+CREATE TABLE fiyat(
+urun_no INT NULL,
+fiyat MONEY NULL
+)
+
+-- 2. İlişkinin kurulması
+ALTER TABLE fiyat WITH CHECK
+ADD CONSTRAINT FK_fiyat_urunler FOREIGN KEY(urun_no)
+REFERENCES urunler (urun_no)
+
+-- 3. TRY...CATCH ile silme kontrolü
+BEGIN TRY
+DECLARE @urunno VARCHAR(20)
+SET @urunno = 3
+DELETE FROM urunler WHERE urun_no = @urunno
+END TRY
+BEGIN CATCH
+IF ERROR_NUMBER() = 547
+PRINT 'Öncelikle ' + @urunno + ' nolu ürünün fiyat bilgisini silin'
+ELSE
+PRINT ERROR_NUMBER()
+END CATCH
