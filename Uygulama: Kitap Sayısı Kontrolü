@@ -1,0 +1,20 @@
+USE KUTUPHANE
+
+DECLARE @k_sayisi VARCHAR(20)
+SELECT @k_sayisi = COUNT(*) FROM KITAPLAR
+
+IF (@k_sayisi <= 5)
+BEGIN
+PRINT 'Kitap Sayısı: ' + @k_sayisi
+PRINT 'Yetersiz Kitap'
+END
+ELSE IF (@k_sayisi > 5 AND @k_sayisi <= 10)
+BEGIN
+PRINT 'Kitap Sayısı: ' + @k_sayisi
+PRINT 'Yeni Kitaplar Gerekli'
+END
+ELSE
+BEGIN
+PRINT 'Kitap Sayısı: ' + @k_sayisi
+PRINT 'Yeterli Kitap'
+END
