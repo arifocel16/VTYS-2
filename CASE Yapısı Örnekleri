@@ -1,0 +1,25 @@
+--Cinsiyet Dönüşümü
+USE personel
+GO
+SELECT ad, soyad, gorev, cinsiyet =
+CASE cinsiyet
+WHEN 1 THEN 'Erkek'
+WHEN 0 THEN 'Bayan'
+END
+FROM personel
+GO
+
+--Notları 5'lik Sisteme Çevirme
+USE okul
+GO
+SELECT ogr_no, ders, notu, 'notu' =
+CASE
+WHEN notu > 84 THEN 5
+WHEN notu > 69 AND notu < 85 THEN 4
+WHEN notu > 54 AND notu < 70 THEN 3
+WHEN notu > 44 AND notu < 55 THEN 2
+WHEN notu > 24 AND notu < 45 THEN 1
+ELSE 0
+END
+FROM ogr_notlar
+GO
