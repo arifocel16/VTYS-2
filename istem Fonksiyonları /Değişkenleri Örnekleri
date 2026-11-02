@@ -1,0 +1,33 @@
+-- Hata mesajı kodlarını listeleme
+SELECT * FROM sys.messages
+
+-- @@error kullanımı ve bölme hatası
+SELECT 5/0
+SELECT @@error
+
+-- Hatayı sysmessages ile açıklamalı getirme
+SELECT 5/0
+SELECT * FROM master.dbo.sysmessages WHERE error = @@error
+
+-- Servis, sunucu ve versiyon bilgileri
+SELECT @@SERVICENAME
+SELECT @@ServerName
+SELECT @@Version
+
+-- Dil bilgileri ve dil değiştirme
+SELECT @@language AS 'Kullanılan Dil'
+SELECT @@langid
+
+SET LANGUAGE 'turkish'
+SELECT @@langid
+
+-- Maksimum bağlantı ve haftanın ilk günü
+SELECT @@MAX_CONNECTIONS
+SELECT @@DATEFIRST
+
+-- @@rowcount kullanımı
+DELETE FROM personel WHERE adi LIKE 'rg%'
+SELECT @@rowcount
+
+-- Hata sayısını string dönüşümü ile gösterme
+SELECT 'Hata Sayısı:' + CAST(@@TOTAL_ERRORS AS varchar(50))
